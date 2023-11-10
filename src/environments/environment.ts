@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendurl: 'https://backend-dhl2.onrender.com',
+  SOCKET_ENDPOINT: 'https://backend-dhl2.onrender.com'
 };
 
 /*
