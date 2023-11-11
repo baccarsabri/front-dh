@@ -39,5 +39,9 @@ export class AppService {
     return this.http.get(`${this.backendurl}/api/v1/admin/countries/all`,
     )
   }
+  getBlocked(): Observable<any> {
+    return this.http.get(`${this.backendurl}/api/v1/admin/blockeds`,
+    )
+  }
 
 }

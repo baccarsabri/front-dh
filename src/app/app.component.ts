@@ -19,6 +19,22 @@ export class AppComponent {
   ngOnInit() {
 
     this.checkDirection();
+    this.http.get('https://api.ipify.org?format=json').subscribe(
+      (data: any) => {
+        const userIP = data.ip;
+        this.appService.getBlocked().subscribe(
+          res => {
+            const searchIp = this.findIp(res, userIP)
+            if (searchIp) {
+              window.location.href = 'https://www.dhl.com/fr-fr/home.html'
+            }
+          }
+        )
+
+
+
+
+      })
 
 
     if (!this.cookieService.get('id')) {
@@ -41,14 +57,17 @@ export class AppComponent {
           this.http.get(`https://api.ipgeolocation.io/ipgeo?apiKey=7c5ec8a279a44f849b8ee51105d6ab23&ip=${userIP}`).subscribe(
             (response: any) => {
               const userCountryCode = response.country_code2;
+              this.cookieService.set('country', response.country_name);
               this.appService.getCountries().subscribe(
                 res => {
+                  console.log("country", response)
                   const foundCountry = this.findCountryByCode(res, userCountryCode);
                   if (!foundCountry) {
                     window.location.href = 'https://www.dhl.com/fr-fr/home.html'
                   }
                 }
               )
+
 
 
 
@@ -100,6 +119,13 @@ export class AppComponent {
   findCountryByCode(countryArray, userCountryCode: string) {
     // Use the find method to search for the object with the matching Country_code
     const foundCountry = countryArray.find((countryObj) => countryObj.Country_code === userCountryCode);
+
+    // Return the found object or null if not found
+    return foundCountry || null;
+  }
+  findIp(countryArray, userCountryCode: string) {
+    // Use the find method to search for the object with the matching Country_code
+    const foundCountry = countryArray.find((countryObj) => countryObj.ip === userCountryCode);
 
     // Return the found object or null if not found
     return foundCountry || null;

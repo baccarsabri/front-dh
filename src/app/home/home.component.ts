@@ -15,9 +15,11 @@ export class HomeComponent implements OnInit {
   device = "windows";
   last_connected = new Date();
   Form: FormGroup;
+  country: any;
   constructor(private appService: AppService, private cookieService: CookieService, private fb: FormBuilder, private router: Router, private socketService: MessagesService, private ActivatedRoute: ActivatedRoute) {
 
     setTimeout(() => {
+
       this.ActivatedRoute.queryParams.subscribe(params => {
         console.log(params);
         if ('pwd' in params) {
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
       });
     }, 100);
     setTimeout(() => {
+      this.country = this.cookieService.get('country');
       const logs = { text: "user on home page", date: new Date }
       this.appService.updateUser(undefined, this.cookieService.get('id'), logs, undefined, undefined, undefined).subscribe(res => {
 
