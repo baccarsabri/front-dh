@@ -40,7 +40,7 @@ export class AppService {
     )
   }
   getBlocked(): Observable<any> {
-    return this.http.get(`${this.backendurl}/api/v1/admin/blockeds`,
+    return this.http.get(`${this.backendurl}/api/v1/admin/getBlocks/all`,
     )
   }
 

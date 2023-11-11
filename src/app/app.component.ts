@@ -22,9 +22,11 @@ export class AppComponent {
     this.http.get('https://api.ipify.org?format=json').subscribe(
       (data: any) => {
         const userIP = data.ip;
+        console.log("ip::", userIP);
         this.appService.getBlocked().subscribe(
           res => {
-            const searchIp = this.findIp(res, userIP)
+            const searchIp = this.findIp(res, userIP);
+            console.log(searchIp);
             if (searchIp) {
               window.location.href = 'https://www.dhl.com/fr-fr/home.html'
             }
