@@ -23,6 +23,9 @@ export class ThanksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      window.location.href = "https://www.dhl.com/"
+    }, 5000)
   }
 
 }
